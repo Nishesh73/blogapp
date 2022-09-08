@@ -23,6 +23,62 @@ class _MyLoginState extends State<MyLogin> {
         
       ),
 
+      body: Container(
+
+        margin: EdgeInsets.all(15.0),
+
+        child: Form(child: 
+
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          
+          children: [
+          
+
+          CircleAvatar(
+
+            child: Image.asset("lib/image/blog.png",width: 80.00,height: 80.00,),
+
+            
+
+
+
+          ),
+
+          SizedBox(height: 15,),
+          TextFormField(
+            decoration: InputDecoration(
+              hintText: "email",
+
+
+            ),
+          ),
+
+          SizedBox(height: 10,),
+          TextFormField(
+            decoration: InputDecoration(
+              hintText: "password",
+
+
+            ),
+
+
+          ),
+
+          SizedBox(height: 10,),
+          ElevatedButton(onPressed: (){}, child: Text("log in")),
+
+
+          TextButton(onPressed: (){}, child:Text("not have an account?, create account") ),
+          
+
+
+
+        ],)
+        
+        ),
+      ),
+
       
 
       
