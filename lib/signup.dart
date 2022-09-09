@@ -1,24 +1,21 @@
 
-import 'package:blogapp/signup.dart';
+import 'package:blogapp/login.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
-class MyLogin extends StatefulWidget {
-  const MyLogin({super.key});
+class MySignUp extends StatefulWidget {
+  const MySignUp({super.key});
 
   @override
-  State<MyLogin> createState() => _MyLoginState();
+  State<MySignUp> createState() => _MySignUpState();
 }
 
-class _MyLoginState extends State<MyLogin> {
-
+class _MySignUpState extends State<MySignUp> {
   final _formkey=GlobalKey<FormState>();
   String _email="";
   String _password="";
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return  Scaffold(
 
       appBar: AppBar(
         title: Text("The blog app"),
@@ -115,13 +112,13 @@ class _MyLoginState extends State<MyLogin> {
 
 
 
-          }, child: Text("log in")),
+          }, child: Text("Creat an account")),
 
 
           TextButton(onPressed: (){
 
            
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>MySignUp()));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>MyLogin()));
 
 
 
@@ -132,7 +129,7 @@ class _MyLoginState extends State<MyLogin> {
 
 
 
-          }, child:Text("not have an account?, create account") ),
+          }, child:Text("Have an account? log in") ),
           
 
 
