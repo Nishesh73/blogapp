@@ -1,8 +1,20 @@
+import 'package:blogapp/home.dart';
 import 'package:blogapp/login.dart';
+import 'package:blogapp/signup.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 
-void main(){
+// Import the generated file
+import 'firebase_options.dart';
+
+
+
+void main() async{
+
+  await Firebase.initializeApp(
+  options: DefaultFirebaseOptions.currentPlatform,
+);
 
   runApp(BlogApp(
 
@@ -28,7 +40,7 @@ class BlogApp extends StatelessWidget {
 
       debugShowCheckedModeBanner:false ,
 
-      home: MyLogin(),
+      home: MySignUp(),
 
       
 

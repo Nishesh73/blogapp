@@ -1,4 +1,6 @@
 
+import 'package:blogapp/authenticate.dart';
+import 'package:blogapp/home.dart';
 import 'package:blogapp/login.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +12,7 @@ class MySignUp extends StatefulWidget {
 }
 
 class _MySignUpState extends State<MySignUp> {
+  Authenticate authenticate=Authenticate();
   final _formkey=GlobalKey<FormState>();
   String _email="";
   String _password="";
@@ -103,16 +106,25 @@ class _MySignUpState extends State<MySignUp> {
           ),
 
           SizedBox(height: 10,),
-          ElevatedButton(onPressed: (){
+          ElevatedButton(
+            child: Text("Creat an account"),
+            
+            onPressed: () async{
 
             if(_formkey.currentState!.validate()){
 
+              
+              
 
-            }
+
+
+             
+
+}
 
 
 
-          }, child: Text("Creat an account")),
+          }, ),
 
 
           TextButton(onPressed: (){
