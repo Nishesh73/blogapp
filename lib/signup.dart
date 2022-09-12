@@ -113,14 +113,22 @@ class _MySignUpState extends State<MySignUp> {
 
             if(_formkey.currentState!.validate()){
 
+            dynamic val=  await authenticate.sigUp(_email, _password);
+
+            print(_email);
+            print(_password);
+
+            if(val==null){
+               print("eror is here");
+
               
-              
+            }
+            else{
 
+             print("no error");
+            }
 
-
-             
-
-}
+            }
 
 
 
@@ -134,13 +142,6 @@ class _MySignUpState extends State<MySignUp> {
 
 
 
-
-            
-
-
-
-
-
           }, child:Text("Have an account? log in") ),
           
 
@@ -151,12 +152,6 @@ class _MySignUpState extends State<MySignUp> {
         ),
       ),
 
-      
-
-      
-
-
-      
-    );
+       );
   }
 }
