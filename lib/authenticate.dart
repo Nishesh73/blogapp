@@ -7,31 +7,46 @@ class Authenticate{
   FirebaseAuth firebaseAuth=FirebaseAuth.instance;
 
 
-  Future<String> sigUp(String emails, String passwords) async{
+  Future<User?> sigUp(String email, String password) async{
 
-    User user= (await firebaseAuth.createUserWithEmailAndPassword(email: emails, password: passwords)) as User;
+    
 
-    return user.uid;
+    try{
+      UserCredential userCredential=await firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+
+    User? user=userCredential.user;
+    return user;
+
+    }catch(e){
+      print(e);
+    }
+
+   
+}
+
+Future<User?> signIn(String emails, String passwords) async{ 
+
+  try{
+  UserCredential userCredential= await firebaseAuth.signInWithEmailAndPassword(email: emails, password: passwords);
+
+ 
+  User? user=userCredential.user;
+
+  return user; 
+
+
+  }
+
+  catch(e){
+    print("error is..");
+    print(e);
+  }
+ 
+
 
 }
 
-Future<String> signIn(String emails, String passwords) async{
-  User user= (await firebaseAuth.signInWithEmailAndPassword(email: emails, password: passwords)) as User;
 
-  return user.uid;
-
-
-}
-
-Future<String> getCurrentUserId() async{
-
-  User user=(await firebaseAuth.currentUser) as User;
-  return user.uid;
-
-
-
-
-}
 
 Future<void> signOut() async{
   await firebaseAuth.signOut();

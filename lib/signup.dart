@@ -115,8 +115,8 @@ class _MySignUpState extends State<MySignUp> {
 
             dynamic val=  await authenticate.sigUp(_email, _password);
 
-            print(_email);
-            print(_password);
+           // print(_email);
+           // print(_password);
 
             if(val==null){
                print("eror is here");
@@ -125,7 +125,7 @@ class _MySignUpState extends State<MySignUp> {
             }
             else{
 
-             print("no error");
+             print("signup is successful");
             }
 
             }

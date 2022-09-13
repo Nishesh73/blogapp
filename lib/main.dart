@@ -41,7 +41,7 @@ class BlogApp extends StatelessWidget {
 
       debugShowCheckedModeBanner:false ,
 
-      home: MySignUp(),
+      home: MyLogin(),
 
       
 

@@ -1,8 +1,8 @@
 
+import 'package:blogapp/authenticate.dart';
 import 'package:blogapp/signup.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 
 class MyLogin extends StatefulWidget {
   const MyLogin({super.key});
@@ -12,6 +12,7 @@ class MyLogin extends StatefulWidget {
 }
 
 class _MyLoginState extends State<MyLogin> {
+  Authenticate authenticate=Authenticate();
 
   final _formkey=GlobalKey<FormState>();
   String _email="";
@@ -106,9 +107,23 @@ class _MyLoginState extends State<MyLogin> {
           ),
 
           SizedBox(height: 10,),
-          ElevatedButton(onPressed: (){
+          ElevatedButton(onPressed: () async{
 
             if(_formkey.currentState!.validate()){
+
+             dynamic val= await authenticate.signIn(_email, _password);
+
+             if(val==null){
+
+              print("error ocur");
+             }
+             else{
+
+              print("login successful");
+             }
+
+              
+
 
 
             }
