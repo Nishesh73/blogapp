@@ -125,7 +125,11 @@ class _MySignUpState extends State<MySignUp> {
             }
             else{
 
-             print("signup is successful");
+             print("signup is successful token is $val");
+           
+             Navigator.pushNamed(context, "/homes");
+
+
             }
 
             }

@@ -41,7 +41,16 @@ class BlogApp extends StatelessWidget {
 
       debugShowCheckedModeBanner:false ,
 
-      home: MyLogin(),
+      //home: MySignUp();
+
+      initialRoute:"/",
+
+      routes: {
+        "/":(context)=>MySignUp(),
+        "/homes":(context)=>MyHome(),
+
+
+      },
 
       
 

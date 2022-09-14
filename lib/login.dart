@@ -120,6 +120,8 @@ class _MyLoginState extends State<MyLogin> {
              else{
 
               print("login successful");
+              Navigator.pushNamed(context, "/homes");
+
              }
 
               
