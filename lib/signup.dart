@@ -12,6 +12,8 @@ class MySignUp extends StatefulWidget {
 }
 
 class _MySignUpState extends State<MySignUp> {
+
+  String error="you have some error during signup";
   Authenticate authenticate=Authenticate();
   final _formkey=GlobalKey<FormState>();
   String _email="";
@@ -56,8 +58,13 @@ class _MySignUpState extends State<MySignUp> {
           Expanded(
             child: TextFormField(
               validator: (value){
+
+                setState(() {
+                  _email=value.toString();
+                  
+                });
           
-                _email=value.toString();
+                
                 if(_email.isEmpty){
           
                   return "add something in email field";
@@ -85,8 +92,13 @@ class _MySignUpState extends State<MySignUp> {
             child: TextFormField(
           
               validator: (value){
+
+                setState(() {
+                   _password=value.toString();
+                  
+                });
           
-                _password=value.toString();
+               
                 if(_password.isEmpty){
           
                   return "add password";
@@ -121,11 +133,23 @@ class _MySignUpState extends State<MySignUp> {
             if(val==null){
                print("eror is here");
 
+               setState(() {
+                error="please supply valid email address";
+                 
+               });
+
+               
+              
+
+               
+               
+
               
             }
             else{
+              
 
-             print("signup is successful token is $val");
+            
            
              Navigator.pushNamed(context, "/homes");
 
@@ -137,6 +161,11 @@ class _MySignUpState extends State<MySignUp> {
 
 
           }, ),
+
+          SizedBox(height: 5,),
+          Text(error,style: TextStyle(color: Colors.red),),
+
+
 
 
           TextButton(onPressed: (){

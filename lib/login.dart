@@ -14,6 +14,8 @@ class MyLogin extends StatefulWidget {
 class _MyLoginState extends State<MyLogin> {
   Authenticate authenticate=Authenticate();
 
+ 
+
   final _formkey=GlobalKey<FormState>();
   String _email="";
   String _password="";
@@ -57,8 +59,13 @@ class _MyLoginState extends State<MyLogin> {
           Expanded(
             child: TextFormField(
               validator: (value){
+
+                setState(() {
+                  _email=value.toString();
+                  
+                });
           
-                _email=value.toString();
+                
                 if(_email.isEmpty){
           
                   return "add something in email field";
@@ -86,8 +93,11 @@ class _MyLoginState extends State<MyLogin> {
             child: TextFormField(
           
               validator: (value){
+                setState(() {
+                  _password=value.toString();
+                });
           
-                _password=value.toString();
+                
                 if(_password.isEmpty){
           
                   return "add password";
@@ -114,6 +124,8 @@ class _MyLoginState extends State<MyLogin> {
              dynamic val= await authenticate.signIn(_email, _password);
 
              if(val==null){
+
+              
 
               print("error ocur");
              }
