@@ -25,7 +25,14 @@ Row(
   children: [
 
   IconButton(onPressed: (){}, icon: Icon(Icons.ad_units)),
-  IconButton(onPressed: (){}, icon: Icon(Icons.add_a_photo)),
+
+  
+  IconButton(onPressed: (){
+
+   Navigator.pushNamed(context, "/photoup");
+
+
+  }, icon: Icon(Icons.add_a_photo)),
   
 
 ],)

@@ -1,5 +1,6 @@
 import 'package:blogapp/home.dart';
 import 'package:blogapp/login.dart';
+import 'package:blogapp/photouplod.dart';
 import 'package:blogapp/signup.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -18,11 +19,7 @@ void main() async{
 );
 
   runApp(BlogApp(
-
-    
-
-    
-  ));
+));
 
 
 
@@ -48,6 +45,7 @@ class BlogApp extends StatelessWidget {
       routes: {
         "/":(context)=>MySignUp(),
         "/homes":(context)=>MyHome(),
+        "/photoup":(context)=>MyPhotoUpload(),
 
 
       },
