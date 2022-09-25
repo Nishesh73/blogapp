@@ -1,5 +1,7 @@
 
+
 import 'package:flutter/material.dart';
+
 
 class MyHome extends StatefulWidget {
   const MyHome({super.key});
@@ -9,6 +11,18 @@ class MyHome extends StatefulWidget {
 }
 
 class _MyHomeState extends State<MyHome> {
+
+  List postes=[];
+
+  @override
+  void initState() { 
+    super.initState();
+  
+   
+    
+ }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

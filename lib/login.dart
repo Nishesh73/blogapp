@@ -31,143 +31,142 @@ class _MyLoginState extends State<MyLogin> {
         
       ),
 
-      body: Container(
-
-        margin: EdgeInsets.all(15.0),
-
-        child: Form(
-          key: _formkey,
-          child: 
-
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          
-          children: [
-          
-
-          CircleAvatar(
-
-            child: Image.asset("lib/image/blog.png",width: 80.00,height: 80.00,),
-
+      body: SingleChildScrollView(
+        child: Container(
+        
+          margin: EdgeInsets.all(15.0),
+        
+          child: Form(
+            key: _formkey,
+            child: 
+        
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+             mainAxisSize: MainAxisSize.min,
             
-
-
-
-          ),
-
-          SizedBox(height: 15,),
-          Expanded(
-            child: TextFormField(
+            children: [
+            
+          
+            CircleAvatar(
+          
+              child: Image.asset("lib/image/blog.png",width: 80.00,height: 80.00,),
+          
+              
+          
+          
+          
+            ),
+          
+            SizedBox(height: 15,),
+            TextFormField(
               validator: (value){
-
+          
                 setState(() {
                   _email=value.toString();
                   
                 });
-          
+            
                 
                 if(_email.isEmpty){
-          
+            
                   return "add something in email field";
                 }
-          
-          
+            
+            
               },
              
-          
-          
-          
-          
-          
+            
+            
+            
+            
+            
               
               decoration: InputDecoration(
                 hintText: "email",
-          
-          
+            
+            
               ),
             ),
-          ),
-
-          SizedBox(height: 10.00,),
-          Expanded(
-            child: TextFormField(
           
+            SizedBox(height: 10.00,),
+            TextFormField(
+            
               validator: (value){
                 setState(() {
                   _password=value.toString();
                 });
-          
+            
                 
                 if(_password.isEmpty){
-          
+            
                   return "add password";
                 }
               },
             
               decoration: InputDecoration(
                 hintText: "password",
+            
+                
+            
+            
+              ),
+            
+            
+            ),
+          
+            SizedBox(height: 10,),
+            ElevatedButton(onPressed: () async{
+          
+              if(_formkey.currentState!.validate()){
+          
+               dynamic val= await authenticate.signIn(_email, _password);
+          
+               if(val==null){
+          
+                
+          
+                print("error ocur");
+               }
+               else{
+          
+                print("login successful");
+                Navigator.pushNamed(context, "/homes");
+          
+               }
           
                 
           
           
-              ),
+          
+              }
           
           
-            ),
-          ),
-
-          SizedBox(height: 10,),
-          ElevatedButton(onPressed: () async{
-
-            if(_formkey.currentState!.validate()){
-
-             dynamic val= await authenticate.signIn(_email, _password);
-
-             if(val==null){
-
+          
+            }, child: Text("log in")),
+          
+          
+            TextButton(onPressed: (){
+          
+             
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>MySignUp()));
+          
+          
+          
+          
               
-
-              print("error ocur");
-             }
-             else{
-
-              print("login successful");
-              Navigator.pushNamed(context, "/homes");
-
-             }
-
-              
-
-
-
-            }
-
-
-
-          }, child: Text("log in")),
-
-
-          TextButton(onPressed: (){
-
-           
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>MySignUp()));
-
-
-
-
+          
+          
+          
+          
+          
+            }, child:Text("not have an account?, create account") ),
             
-
-
-
-
-
-          }, child:Text("not have an account?, create account") ),
           
-
-
-
-        ],)
-        
+          
+          
+          ],)
+          
+          ),
         ),
       ),
 

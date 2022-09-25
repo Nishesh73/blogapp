@@ -22,7 +22,7 @@ class Authenticate{
     return user;
 
     }catch(e){
-      print(e);
+     // print(e);
       return null;
     }
 
@@ -33,7 +33,7 @@ Future<User?> signIn(String emails, String passwords) async{
 
   try{
   UserCredential userCredential= await firebaseAuth.signInWithEmailAndPassword(email: emails, password: passwords);
-  print(userCredential);
+ // print(userCredential);
  
   User? user=userCredential.user;
 
@@ -43,8 +43,9 @@ Future<User?> signIn(String emails, String passwords) async{
   }
 
   catch(e){
-    print("error is..");
-    print(e);
+   // print("error is..");
+   // print(e);
+    return null;
   }
  
 
