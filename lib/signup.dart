@@ -133,10 +133,7 @@ class _MySignUpState extends State<MySignUp> {
               if(val==null){
                  print("eror is here");
           
-                 setState(() {
-                  error="please supply valid email address";
-                   
-                 });
+                
           
                  
                 

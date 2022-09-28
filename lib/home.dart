@@ -49,31 +49,54 @@ body: StreamBuilder(
     return ListView(
       children: snapshots.data!.docs.map<Widget>((document){
 
-        return Column(children: [
-          Row(children: [
+        
+
+        return Container(
+          margin: EdgeInsets.all(15.0),
+          child: Card(
+            elevation: 10.0,
+            shadowColor: Colors.blue,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Column
             
-           Text(document["date"]),
-
-             SizedBox(width:10.0),
-
-           Text(document["time"]),
-
-
-
-          ],),
-
-          Image.network(document["image"]),
-                  SizedBox(height: 10.0,),
-          Text(document["description"]),
-
-          SizedBox(height: 10,)
-
-
-
-
-
-
-        ],);
+            
+            (children:
+            
+             [
+              
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                
+                children: [
+                
+                
+               Text(document["date"],style: TextStyle(fontSize: 20.0,fontWeight: FontWeight.bold),),
+          
+                 
+          
+               Text(document["time"],style: TextStyle(fontSize: 20.0,fontWeight: FontWeight.bold),),
+          
+          
+          
+          
+              ],),
+          
+              Image.network(document["image"]),
+                      SizedBox(height: 10.0,),
+              Text(document["description"]),
+          
+              SizedBox(height: 10,)
+          
+          
+          
+          
+          
+          
+            ],),
+          ),
+        );
 
         
 
@@ -98,12 +121,11 @@ body: StreamBuilder(
 bottomNavigationBar: BottomAppBar(child: 
 
 Row(
-  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  mainAxisAlignment: MainAxisAlignment.end,
   
   children: [
 
-  IconButton(onPressed: (){}, icon: Icon(Icons.ad_units)),
-
+  
   
   IconButton(onPressed: (){
 
