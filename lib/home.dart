@@ -1,7 +1,11 @@
 
+//import 'dart:html';
 
+
+//import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:firebase_storage/firebase_storage.dart';
 
 class MyHome extends StatefulWidget {
   const MyHome({super.key});
@@ -11,16 +15,20 @@ class MyHome extends StatefulWidget {
 }
 
 class _MyHomeState extends State<MyHome> {
+  int? documentlength;
+  
 
-  List postes=[];
+  String? date, description,image,time;
+  
 
   @override
   void initState() { 
     super.initState();
-  
    
-    
- }
+}
+
+
+ 
 
 
   @override
@@ -30,6 +38,62 @@ class _MyHomeState extends State<MyHome> {
         title: Text("Home"),
 ),
 
+body: StreamBuilder(
+
+  stream:FirebaseFirestore.instance.collection("posts").snapshots(),
+  builder:(BuildContext context,AsyncSnapshot snapshots){
+    if(!snapshots.hasData){
+      return LinearProgressIndicator();
+    }
+
+    return ListView(
+      children: snapshots.data!.docs.map<Widget>((document){
+
+        return Column(children: [
+          Row(children: [
+            
+           Text(document["date"]),
+
+             SizedBox(width:10.0),
+
+           Text(document["time"]),
+
+
+
+          ],),
+
+          Image.network(document["image"]),
+                  SizedBox(height: 10.0,),
+          Text(document["description"]),
+
+          SizedBox(height: 10,)
+
+
+
+
+
+
+        ],);
+
+        
+
+        
+
+
+        
+
+
+
+      }).toList(),
+       
+
+      
+
+       
+       );
+
+
+  } ),
 
 bottomNavigationBar: BottomAppBar(child: 
 
@@ -51,10 +115,18 @@ Row(
 
 ],)
 ,)
+
+
+
     
 
     );
   }
+
+  
+
+
+ 
 }
 
-
+ 

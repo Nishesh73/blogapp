@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:file_picker/file_picker.dart';
+
 import 'package:intl/intl.dart';
 
 class MyPhotoUpload extends StatefulWidget {
@@ -21,7 +21,7 @@ class _MyPhotoUploadState extends State<MyPhotoUpload> {
   final _formkey=new GlobalKey<FormState>();
 
    File? sampleImage;
-
+  
   
 
 
@@ -48,10 +48,11 @@ class _MyPhotoUploadState extends State<MyPhotoUpload> {
         url=imageurl.toString();
        // print(url);
 
-        
+        gotoHomePage();
 
         saveToDatabase(url);
-        gotoHomePage();
+        
+        
         
 
 }     
@@ -59,7 +60,7 @@ class _MyPhotoUploadState extends State<MyPhotoUpload> {
  }
 
 
-  void saveToDatabase(imageurl) async{
+  void saveToDatabase(url) async{
 
           var dbkey=DateTime.now();
 
@@ -99,11 +100,11 @@ class _MyPhotoUploadState extends State<MyPhotoUpload> {
 
   Future<void> getImages() async{
 
-    //ImagePicker imagePicker=new ImagePicker(); inorder access from gallery
-    //var tempimage=await imagePicker.pickImage(source: ImageSource.gallery);
-    //var tempfile=File(tempimage!.path);
+    ImagePicker imagePicker=new ImagePicker(); 
+    var tempimage=await imagePicker.pickImage(source: ImageSource.gallery);
+    var tempfile=File(tempimage!.path);
 
-    FilePickerResult tempfile=await FilePicker.platform.pickFiles(type: FileType.custom) as FilePickerResult;
+    
 
     //tempimage tye is xfile
     //below tempimage type change to file
@@ -111,7 +112,8 @@ class _MyPhotoUploadState extends State<MyPhotoUpload> {
    
 
    setState(() {
-      sampleImage=tempfile as File?;
+    if(tempfile!=null){
+      sampleImage=tempfile;}
     });
 
 
@@ -151,6 +153,9 @@ class _MyPhotoUploadState extends State<MyPhotoUpload> {
     
           Image.file(sampleImage!,width: 300,height: 300,),
         //  Image.asset("$sampleImage",width: 300,height: 300,),
+
+        
+
         
     
             SizedBox(height: 5.00,),
