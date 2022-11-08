@@ -5,24 +5,17 @@ import 'package:blogapp/signup.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-
 // Import the generated file
 import 'firebase_options.dart';
 
-
-
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
-  options: DefaultFirebaseOptions.currentPlatform,
-);
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
-  runApp(BlogApp(
-));
-
-
-
+  runApp(BlogApp());
 }
 
 class BlogApp extends StatelessWidget {
@@ -31,29 +24,21 @@ class BlogApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
       theme: ThemeData(primarySwatch: Colors.pink),
 
       title: "blog app",
 
-      debugShowCheckedModeBanner:false ,
+      debugShowCheckedModeBanner: false,
 
       //home: MySignUp();
 
-      initialRoute:"/",
+      initialRoute: "/",
 
       routes: {
-        "/":(context)=>MySignUp(),
-        "/homes":(context)=>MyHome(),
-        "/photoup":(context)=>MyPhotoUpload(),
-
-
+        "/": (context) => MySignUp(),
+        "/homes": (context) => MyHome(),
+        "/photoup": (context) => MyPhotoUpload(),
       },
-
-      
-
-
-
     );
   }
 }
