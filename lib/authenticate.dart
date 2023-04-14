@@ -1,41 +1,58 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class Authenticate {
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
-  Future<User?> sigUp(String email, String password) async {
+  Future<User?> sigUp(String email, String password, BuildContext context) async {
     try {
       UserCredential userCredential = await firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
+          
 
-      //return userCredential;
-      //taking out user object from large token on usercrdential
-
-      User? user = userCredential.user;
-      return user;
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Successfully sign up")));
+   
     } catch (e) {
-      // print(e);
-      return null;
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+     
     }
   }
 
-  Future<User?> signIn(String emails, String passwords) async {
+ signIn(String emails, String passwords, BuildContext context) async {
+  String success = "success";
     try {
       UserCredential userCredential = await firebaseAuth
           .signInWithEmailAndPassword(email: emails, password: passwords);
       // print(userCredential);
 
-      User? user = userCredential.user;
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Successfully login")));
 
-      return user;
+      return success;
+
+ 
+    
     } catch (e) {
-      // print("error is..");
-      // print(e);
-      return null;
+     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+     return null;
+
+   
     }
   }
 
-  Future<void> signOut() async {
-    await firebaseAuth.signOut();
+  signOut(BuildContext context) async {
+    try {
+       await firebaseAuth.signOut();
+
+         Navigator.pushNamed(context, "/");
+                          
+         
+     
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+       
+      
+    }
+   
   }
 }

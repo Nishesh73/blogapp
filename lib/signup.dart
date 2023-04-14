@@ -49,6 +49,14 @@ class _MySignUpState extends State<MySignUp> {
 
                       if (_email.isEmpty) {
                         return "add something in email field";
+
+                       
+                      }
+                      
+
+                       if(!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(_email)){
+
+                        return "provide valid email";
                       }
                     },
                     decoration: InputDecoration(
@@ -67,6 +75,9 @@ class _MySignUpState extends State<MySignUp> {
                       if (_password.isEmpty) {
                         return "add password";
                       }
+                      if(_password.length<=5){
+                        return "password should have atleast 6 character";
+                      }
                     },
                     decoration: InputDecoration(
                       hintText: "password",
@@ -79,29 +90,24 @@ class _MySignUpState extends State<MySignUp> {
                     child: Text("Creat an account"),
                     onPressed: () async {
                       if (_formkey.currentState!.validate()) {
-                        dynamic val =
-                            await authenticate.sigUp(_email, _password);
+                    
+                            await authenticate.sigUp(_email, _password, context);
 
                         // print(_email);
                         // print(_password);
 
-                        if (val == null) {
-                          print("eror is here");
-                        } else {
-                          print("signup is successful");
+                    
 
                           Navigator.pushNamed(context, "/homes");
-                        }
+                        
                       }
+                      
                     },
                   ),
                   SizedBox(
                     height: 5,
                   ),
-                  Text(
-                    error,
-                    style: TextStyle(color: Colors.red),
-                  ),
+                  
                   TextButton(
                       onPressed: () {
                         Navigator.push(context,

@@ -50,6 +50,10 @@ class _MyLoginState extends State<MyLogin> {
                       if (_email.isEmpty) {
                         return "add something in email field";
                       }
+                      if(!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(_email)){
+
+                        return "provide valid email";
+                      }
                     },
                     decoration: InputDecoration(
                       hintText: "email",
@@ -67,6 +71,8 @@ class _MyLoginState extends State<MyLogin> {
                       if (_password.isEmpty) {
                         return "add password";
                       }
+                      return null;
+                     
                     },
                     decoration: InputDecoration(
                       hintText: "password",
@@ -78,15 +84,11 @@ class _MyLoginState extends State<MyLogin> {
                   ElevatedButton(
                       onPressed: () async {
                         if (_formkey.currentState!.validate()) {
-                          dynamic val =
-                              await authenticate.signIn(_email, _password);
-
-                          if (val == null) {
-                            print("error ocur");
-                          } else {
-                            print("login successful");
-                            Navigator.pushNamed(context, "/homes");
-                          }
+                        
+                         dynamic val = await authenticate.signIn(_email, _password, context);
+                         if(val!=null)
+                             Navigator.pushNamed(context, "/homes");
+                          
                         }
                       },
                       child: Text("log in")),

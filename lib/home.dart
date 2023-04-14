@@ -1,6 +1,7 @@
 //import 'dart:html';
 
 //import 'package:firebase_auth/firebase_auth.dart';
+import 'package:blogapp/authenticate.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 //import 'package:firebase_storage/firebase_storage.dart';
@@ -25,8 +26,20 @@ class _MyHomeState extends State<MyHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: Text("Home"),
+
+
+          actions: [IconButton(onPressed: ()async{
+            Authenticate().signOut(context);
+
+
+          
+
+          }, icon: Icon
+          (Icons.logout))],
         ),
         body: StreamBuilder(
             stream: FirebaseFirestore.instance.collection("posts").snapshots(),
@@ -36,6 +49,8 @@ class _MyHomeState extends State<MyHome> {
               }
 
               return ListView(
+
+
                 children: snapshots.data!.docs.map<Widget>((document) {
                   return Container(
                     margin: EdgeInsets.all(15.0),
@@ -77,7 +92,10 @@ class _MyHomeState extends State<MyHome> {
                     ),
                   );
                 }).toList(),
+
               );
+
+              
             }),
         bottomNavigationBar: BottomAppBar(
           child: Row(
