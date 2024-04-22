@@ -1,43 +1,47 @@
 
 
+import 'dart:js';
+
+import 'package:blogapp/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 class Authenticate{
 
   FirebaseAuth firebaseAuth=FirebaseAuth.instance;
 
 
-  Future<User?> sigUp(String email, String password) async{
+  sigUp(String email, String password, BuildContext context) async{
 
     
 
     try{
-      UserCredential userCredential=await firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+     await firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+     //after successful signup
+      Navigator.pushNamed(context, "/homes");
       
       //return userCredential;
       //taking out user object from large token on usercrdential
 
 
-    User? user=userCredential.user;
-    return user;
 
     }catch(e){
       print(e);
-      return null;
+       dialogBox(context, e.toString() );
+      
     }
 
    
 }
 
-Future<User?> signIn(String emails, String passwords) async{ 
+signIn(String emails, String passwords, BuildContext context) async{ 
 
   try{
-  UserCredential userCredential= await firebaseAuth.signInWithEmailAndPassword(email: emails, password: passwords);
-  print(userCredential);
- 
-  User? user=userCredential.user;
+await firebaseAuth.signInWithEmailAndPassword(email: emails, password: passwords);
+//  dialogBox(context, "successfully signin");
+     Navigator.pushNamed(context, "/homes");
+  
 
-  return user; 
 
 
   }
@@ -45,6 +49,7 @@ Future<User?> signIn(String emails, String passwords) async{
   catch(e){
     print("error is..");
     print(e);
+    dialogBox(context, e.toString() );
   }
  
 
@@ -52,8 +57,7 @@ Future<User?> signIn(String emails, String passwords) async{
 }
 
 
-
-Future<void> signOut() async{
+signOut() async{
   await firebaseAuth.signOut();
 
 

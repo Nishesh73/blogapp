@@ -2,7 +2,9 @@
 import 'package:blogapp/authenticate.dart';
 import 'package:blogapp/home.dart';
 import 'package:blogapp/login.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class MySignUp extends StatefulWidget {
   const MySignUp({super.key});
@@ -53,7 +55,7 @@ class _MySignUpState extends State<MySignUp> {
           ),
 
           SizedBox(height: 15,),
-          Expanded(
+          Flexible(
             child: TextFormField(
               validator: (value){
           
@@ -81,7 +83,7 @@ class _MySignUpState extends State<MySignUp> {
           ),
 
           SizedBox(height: 10.00,),
-          Expanded(
+          Flexible(
             child: TextFormField(
           
               validator: (value){
@@ -113,24 +115,17 @@ class _MySignUpState extends State<MySignUp> {
 
             if(_formkey.currentState!.validate()){
 
-            dynamic val=  await authenticate.sigUp(_email, _password);
+            await authenticate.sigUp(_email, _password, context);
 
            // print(_email);
            // print(_password);
 
-            if(val==null){
-               print("eror is here");
-
-              
-            }
-            else{
-
-             print("signup is successful token is $val");
+        
            
-             Navigator.pushNamed(context, "/homes");
+            
 
 
-            }
+            
 
             }
 

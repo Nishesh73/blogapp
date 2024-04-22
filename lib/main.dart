@@ -1,10 +1,11 @@
 import 'package:blogapp/home.dart';
 import 'package:blogapp/login.dart';
 import 'package:blogapp/signup.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-
+// flutter run -d edge --web-renderer html 
 // Import the generated file
 import 'firebase_options.dart';
 
@@ -35,7 +36,7 @@ class BlogApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
 
-      theme: ThemeData(primarySwatch: Colors.pink),
+    
 
       title: "blog app",
 
@@ -43,11 +44,28 @@ class BlogApp extends StatelessWidget {
 
       //home: MySignUp();
 
-      initialRoute:"/",
+      // initialRoute:"/",no need
 
       routes: {
-        "/":(context)=>MySignUp(),
+        "/":(context)=>StreamBuilder(stream: FirebaseAuth.instance.authStateChanges(),
+         builder: (context, asyncSnap){
+          if(asyncSnap.connectionState==ConnectionState.waiting){
+            return Center(child: CircularProgressIndicator());
+          }
+          if(asyncSnap.data!=null||asyncSnap.hasData){
+            return MyHome();
+
+          }
+
+        return MySignUp()  ;
+
+
+         }),
+        
+        
+        // MySignUp(),
         "/homes":(context)=>MyHome(),
+        "/signup":(context)=>MySignUp(),
 
 
       },
