@@ -23,6 +23,15 @@ class _UploadState extends State<Upload> {
   // we don't have to pass the uintlist parameter inside this function since
   //it is accessibl without doing it, outside this class or file we cant access
   //thus in that scenario we have to pass uin8list as parameter
+  // if the widget is disposded before asynchronous task is completes,
+  //  calling setstate method will result  an error.
+  //to fix this
+  if(!mounted) return;
+  //mounted -- mount everst ma chadne, means widget not dispose till now
+  //in most of the case when i move from one particular screen 1 to 2 at that
+  // time dispose method called but when we use bottomnavigation view , tabbarview
+  //in that case dispose method is not called until entire widget tree is disposed
+  // entire tree is disposed when we close the app only
 
   if(uint8list==null){
     return;
@@ -72,6 +81,7 @@ setState(() {
 
 //steps(3) very imp
   pickImg()async{
+     if(!mounted) return;
     
     //first image will pick
     ImagePicker imagePicker = ImagePicker();
@@ -164,3 +174,4 @@ setState(() {
     );
   }
 }
+//confuse beside,back meaning pachadi, donot confuse with before and after

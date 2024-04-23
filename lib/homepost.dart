@@ -5,13 +5,30 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 class HomePost extends StatefulWidget {
   const HomePost({super.key});
+  //signature of function-- unique identifier of function like funcion name,
+  // return type, parameter etc
+  
 
   @override
   State<HomePost> createState() => _HomePostState();
 }
 
 class _HomePostState extends State<HomePost> {
-  //gradle inside app directory called---app level gradle
+  //gradle inside app directory called is called app level gradle
+
+  //fetching all post
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchAllPost();
+  }
+
+
+  fetchAllPost(){
+
+
+  }
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -32,6 +49,7 @@ class _HomePostState extends State<HomePost> {
           shrinkWrap: true,
           itemCount: asyncsnapshot.data?.docs.length,
           itemBuilder: (context,index){
+
           return HomeUi(imageUrl: asyncsnapshot.data?.docs[index].get("url")??"",
           //if url:"null" to handle this ??""
           email: asyncsnapshot.data?.docs[index].get("email")??"" ,
@@ -43,6 +61,7 @@ class _HomePostState extends State<HomePost> {
           }),
           
           );
+
         });
 
        }),

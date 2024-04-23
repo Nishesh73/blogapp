@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 class HomeUi extends StatelessWidget {
   String imageUrl, email;
-  Function() callback;
+  Function() callback;//callback is variable, type function
   HomeUi({super.key, required this.imageUrl, required this.email, required this.callback});
+  // VoidCallback--represnt function with no return type and no parameter
+  //Function()--is general represent function with return type and parameter, but we have 
+  //flexibility to whether we want to pass parameter or not that is our choice, similar case
+  //for return value as well
 
-  @override
+  @override 
   Widget build(BuildContext context) {
     print("image url is $imageUrl");
     return Padding(
@@ -38,7 +42,7 @@ class HomeUi extends StatelessWidget {
               )),
               //i will press this button when i interact in ui
               IconButton(onPressed: (){
-                callback();//called when iconbutton press
+                callback();//called when iconbutton press, it will invoke function
                 //callback - reference to the function variable i.e it points function variable
                 //only without doing anything
               }, icon: Icon(Icons.delete))
