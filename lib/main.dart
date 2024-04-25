@@ -5,28 +5,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-// flutter run -d edge --web-renderer html 
+// flutter run -d edge --web-renderer html
 // Import the generated file
 import 'firebase_options.dart';
 
-
-
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp(
-  options: DefaultFirebaseOptions.currentPlatform,
-);
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
-  runApp(BlogApp(
-
-    
-
-    
-  ));
-
-
-
+  runApp(BlogApp());
 }
 
 class BlogApp extends StatelessWidget {
@@ -35,45 +24,31 @@ class BlogApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
-    
-
       title: "blog app",
 
-      debugShowCheckedModeBanner:false ,
+      debugShowCheckedModeBanner: false,
 
       //home: MySignUp();
 
-      // initialRoute:"/",no need
+      // initialRoute:"/",no need of this
 
       routes: {
-        "/":(context)=>StreamBuilder(stream: FirebaseAuth.instance.authStateChanges(),
-         builder: (context, asyncSnap){
-          if(asyncSnap.connectionState==ConnectionState.waiting){
-            return Center(child: CircularProgressIndicator());
-          }
-          if(asyncSnap.data!=null||asyncSnap.hasData){
-            return MyHome();
+        "/": (context) => StreamBuilder(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (context, asyncSnap) {
+              if (asyncSnap.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              }
+              if (asyncSnap.data != null || asyncSnap.hasData) {
+                return MyHome();
+              }
 
-          }
-
-        return MySignUp()  ;
-
-
-         }),
-        
-        
+              return MySignUp();
+            }),
         // MySignUp(),
-        "/homes":(context)=>MyHome(),
-        "/signup":(context)=>MySignUp(),
-
-
+        "/homes": (context) => MyHome(),
+        "/signup": (context) => MySignUp(),
       },
-
-      
-
-
-
     );
   }
 }

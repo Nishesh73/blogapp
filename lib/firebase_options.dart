@@ -69,7 +69,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '297142113621',
     projectId: 'your-first-blog',
     storageBucket: 'your-first-blog.appspot.com',
-    iosClientId: '297142113621-ocq4efcuq0h5cdvgujr3it1rd60hru51.apps.googleusercontent.com',
+    iosClientId:
+        '297142113621-ocq4efcuq0h5cdvgujr3it1rd60hru51.apps.googleusercontent.com',
     iosBundleId: 'com.example.blogapp',
   );
 }
