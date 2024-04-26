@@ -1,5 +1,7 @@
+import 'package:blogapp/provider/themenotifier.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -39,7 +41,7 @@ class _SettingsState extends State<Settings> {
             margin: EdgeInsets.symmetric(horizontal: 20),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
-              color: Colors.grey.shade200,),
+              color:Provider.of<ThemeNotifier>(context).darkTheme?Colors.black38: Colors.grey.shade200,),
             
             
             child: Padding(
@@ -47,8 +49,12 @@ class _SettingsState extends State<Settings> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Dark Mode", style: TextStyle(fontSize: 20),),
-                  Switch(value: false, onChanged: (_){}),
+                  Text("Dark Mode", style: TextStyle(fontSize: 20, color: Colors.blue, fontWeight: FontWeight.bold),),
+                  Switch(value: Provider.of<ThemeNotifier>(context).darkTheme, onChanged: (_){
+                    Provider.of<ThemeNotifier>(context, listen: false).toogleTheme();
+
+
+                  }),
                 ],
               ),
             ),),

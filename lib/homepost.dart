@@ -31,7 +31,7 @@ class _HomePostState extends State<HomePost> {
 
   fetchAllPost() async {
     if (!mounted) return;
-    //mounted - mount everest ma chadne means (dispose navayeko)
+    //mounted - mount everest ma chadne, means (dispose navayeko)
     List<QuerySnapshot> tquerySnapList = [];
 
     try {
@@ -54,12 +54,17 @@ class _HomePostState extends State<HomePost> {
       if (querySnap != null) {
         //in each iteration we will get the querySnap then we will put inside querySnapList
         tquerySnapList.add(querySnap);
-
+       
         
       } else {
         print("no data available");
       }
     }
+ setState(() {
+      querySnapList = tquerySnapList;
+
+
+    });
       
     } catch (e) {
       print("error occur $e");
@@ -68,11 +73,7 @@ class _HomePostState extends State<HomePost> {
     }
   
 
-    setState(() {
-      querySnapList = tquerySnapList;
-
-
-    });
+   
 
 
   }
@@ -83,8 +84,11 @@ class _HomePostState extends State<HomePost> {
 
     print("homepost execute");
     print("querysnapshot is $querySnapList");
+    
     return Scaffold(
-        body:querySnapList.isEmpty?Center(child: Text("There is no data at all")): ListView.builder(
+        body:querySnapList.isEmpty?
+        
+        Center(child: Text("There is no data at all")): ListView.builder(
             shrinkWrap: true,
             itemCount: querySnapList.length,
             //we use map() function for list to perform iteration
@@ -111,6 +115,10 @@ class _HomePostState extends State<HomePost> {
               // }),
 
               // );
-            }));
+            })
+            
+            );
+
+
   }
 }
