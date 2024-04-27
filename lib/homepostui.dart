@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 
 class HomeUi extends StatelessWidget {
-  String imageUrl, email;
+  String imageUrl, email, description;
 
-  Function() callback; //callback is variable, type function
+   Function() callback; //callback is variable, type function
   HomeUi(
       {super.key,
       required this.imageUrl,
       required this.email,
-      required this.callback});
+      required this.description,
+       required this.callback
+      
+      });
   // VoidCallback--represnt function with no return type and no parameter
   //Function()--is general represent function with return type and parameter, but we have
   //flexibility to whether we want to pass parameter or not that is our choice, similar case
@@ -41,21 +44,44 @@ class HomeUi extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Card(
-                  child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
                   email,
                   style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
                       color: Colors.grey),
-                ),
-              )),
+                                  ),
+                                ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(description??"description nor provided"),
+                      //suppose description is ""(empty) right side statement wont execute 
+                      //mind it
+                    ),
+
+                ],
+              ),
+              Column(
+                children: [
+                  IconButton(onPressed: (){}, icon: Icon(Icons.favorite)),
+                  Text("10 likes")
+                ],
+              ),
+              Column(
+                children: [
+                  IconButton(onPressed: (){}, icon: Icon(Icons.comment)),
+                  Text("10 comments")
+                ],
+              ),
               //i will press this button when i interact in ui
               IconButton(
                   onPressed: () {
-                    callback(); //called when iconbutton press, it will invoke function
+                     callback() ;//called when iconbutton press, it will invoke function
                     //callback - reference to the function variable i.e it points function variable
                     //only without doing anything
                   },

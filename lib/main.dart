@@ -18,11 +18,10 @@ void main() async {
   );
 
   runApp(ChangeNotifierProvider<ThemeNotifier>(
-    create: (context) {
-   return   ThemeNotifier();
-    },
-    
-    child: BlogApp()));
+      create: (context) {
+        return ThemeNotifier();
+      },
+      child: BlogApp()));
 }
 
 class BlogApp extends StatelessWidget {

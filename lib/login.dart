@@ -20,6 +20,7 @@ class _MyLoginState extends State<MyLogin> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+         automaticallyImplyLeading: false,
         title: Text("The blog app"),
         centerTitle: true,
       ),

@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:blogapp/provider/themenotifier.dart';
 import 'package:blogapp/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,6 +8,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
 class Upload extends StatefulWidget {
@@ -57,8 +59,8 @@ class _UploadState extends State<Upload> {
     if (currentUser != null) {
       await FirebaseFirestore.instance
           .collection("posts")
-          .doc(FirebaseAuth.instance.currentUser?.uid)
-          .collection("postItem")
+          // .doc(FirebaseAuth.instance.currentUser?.uid)
+          // .collection("postItem")
           .doc(postId)
           .set({
         "email": currentUser.email,
@@ -138,9 +140,10 @@ class _UploadState extends State<Upload> {
                         controller: desController,
                         decoration: InputDecoration(
                             hintText: "describe",
+                            helperStyle: TextStyle(color:Provider.of<ThemeNotifier>(context).darkTheme?Colors.white: Colors.black  ),
                             border: InputBorder.none,
                             filled: true,
-                            fillColor: Colors.grey.shade300),
+                            fillColor: Provider.of<ThemeNotifier>(context).darkTheme?Colors.black38: Colors.grey.shade200),
                       ),
                     ),
                   ),
@@ -152,8 +155,8 @@ class _UploadState extends State<Upload> {
                         uint8list = null;
                       });
                     },
-                    color: Colors.grey.shade200,
-                    child: Text("Post"),
+                    color:  Provider.of<ThemeNotifier>(context).darkTheme?Colors.black38: Colors.grey.shade200,
+                    child: Text("Post",style: TextStyle(color:Provider.of<ThemeNotifier>(context).darkTheme?Colors.white: Colors.black  ),),
                   ),
                 ],
               ));

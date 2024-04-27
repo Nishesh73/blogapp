@@ -21,6 +21,7 @@ class _MySignUpState extends State<MySignUp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text("The blog app"),
         centerTitle: true,
       ),
