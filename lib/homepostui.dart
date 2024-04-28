@@ -92,8 +92,18 @@ class HomeUi extends StatelessWidget {
               ),
               Column(
                 children: [
-                  IconButton(onPressed: (){}, icon: Icon(Icons.comment)),
-                  Text("10 comments")
+                  IconButton(onPressed: (){
+                    commentCallBack();
+                  }, icon: Icon(Icons.comment)),
+                  StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance.collection("posts").doc(postId).collection("comment").snapshots(),
+                    builder: (context, snapshot) {
+                      if(snapshot.connectionState==ConnectionState.waiting){
+                        return Center(child: CircularProgressIndicator());
+                      }
+                      return Text("${snapshot.data?.docs.length}");
+                    }
+                  ),
                 ],
               ),
               //i will press this button when i interact in ui

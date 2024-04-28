@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class HomePost extends StatefulWidget {
   const HomePost({super.key});
@@ -18,7 +19,7 @@ class _HomePostState extends State<HomePost> {
 //post without disturbing other post we must declare postId locally
  var likes;
  bool isLIked = false;
-
+TextEditingController commentController = TextEditingController();
   
   //gradle inside app directory called is called app level gradle
   //  late QuerySnapshot querySnap; querySnap should be assign some value before accessign it
@@ -165,6 +166,59 @@ setState(() {
 
 
    }
+   //
+  storeComment(String postId)async{
+    try {
+      await  FirebaseFirestore.instance.collection("posts").doc(postId).collection("comment").add({
+      "commenterName": FirebaseAuth.instance.currentUser?.email,
+      "commentData": commentController.text,
+      "timeStamp": DateTime.now()
+
+
+    });
+      
+    } catch (e) {
+
+      print("error is $e");
+      
+    }
+
+  
+
+
+  } 
+   //commentdialog box
+ commentDialogBox(String postId){
+  showDialog(context: context, builder: (context){
+
+    return AlertDialog(
+      shape: RoundedRectangleBorder(
+        
+        borderRadius: BorderRadius.circular(5)),
+      title: Text("Comment something"),
+      content: Row(children: [
+        Flexible(child: TextField(
+controller: commentController,
+
+        )),
+        IconButton(onPressed: (){
+          Navigator.pop(context);
+        }, icon: Icon(Icons.cancel)),
+        IconButton(onPressed: (){
+          //post to firestore
+           Navigator.pop(context);
+
+          storeComment(postId);
+         
+        }, icon: Icon(Icons.send),),
+      ],),
+
+    );
+  });
+
+
+
+ }
 
   //we can directly assign list type to list
   @override
@@ -225,7 +279,12 @@ setState(() {
                    likeCallBack: (){
                     likePost(postId);
                    },
-                   commentCallBack: (){},
+                   commentCallBack: (){
+                    print("commnet");
+                    commentDialogBox(postId);
+
+
+                   },
                    
                    
                    );
