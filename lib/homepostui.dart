@@ -1,15 +1,23 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class HomeUi extends StatelessWidget {
-  String imageUrl, email, description;
+  String imageUrl, email, description, postId;
+ 
 
    Function() callback; //callback is variable, type function
+   VoidCallback likeCallBack;
+   VoidCallback commentCallBack;
   HomeUi(
       {super.key,
       required this.imageUrl,
       required this.email,
       required this.description,
-       required this.callback
+       required this.callback,
+       required this.likeCallBack,
+       required this.commentCallBack,
+       required this.postId,
+       
       
       });
   // VoidCallback--represnt function with no return type and no parameter
@@ -68,8 +76,18 @@ class HomeUi extends StatelessWidget {
               ),
               Column(
                 children: [
-                  IconButton(onPressed: (){}, icon: Icon(Icons.favorite)),
-                  Text("10 likes")
+                  IconButton(onPressed: (){
+                    likeCallBack();
+                  }, icon: Icon(Icons.favorite) ),
+                  StreamBuilder<DocumentSnapshot>(
+                    stream: FirebaseFirestore.instance.collection("posts").doc(postId).snapshots(),
+                    builder: (context, snapshot) {
+                      if(snapshot.connectionState==ConnectionState.waiting){
+                        return CircularProgressIndicator();
+                      }
+                      return Text("${snapshot.data?.get("like").length}");
+                    }
+                  )
                 ],
               ),
               Column(

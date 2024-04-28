@@ -14,7 +14,12 @@ class HomePost extends StatefulWidget {
 }
 
 class _HomePostState extends State<HomePost> {
-  String? postId;
+//  String? postId;//culprit is this, to maintain the delete like comment feature in specific
+//post without disturbing other post we must declare postId locally
+ var likes;
+ bool isLIked = false;
+
+  
   //gradle inside app directory called is called app level gradle
   //  late QuerySnapshot querySnap; querySnap should be assign some value before accessign it
   //since operation is async it may take time to completes, if we try to access it before
@@ -80,20 +85,23 @@ class _HomePostState extends State<HomePost> {
   // }
 
   //showing delete dialogbox
-   showDeleteDialogBox(){
+   showDeleteDialogBox(String postId){
     showDialog(
+      
       barrierDismissible: false,
       context: context, builder: (context){
       return AlertDialog(
         
-
+       shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5.0)
+       ),
         content: Text("Do you really want to delete the post?"),
         actions: [
           TextButton(onPressed: (){
             Navigator.pop(context);
           }, child: Text("No")),
           TextButton(onPressed: (){
-             deletePost();
+             deletePost(postId);
 
 
           }, child: Text("Yes")),
@@ -101,8 +109,37 @@ class _HomePostState extends State<HomePost> {
       );
     });
    }
+   //likePost
+   likePost(String postId){
+// toogle button 
+setState(() {
+  isLIked = !isLIked;
+  
+});
+//will work because isLIked related to specific postlike
+if(isLIked){
+    FirebaseFirestore.instance.collection("posts")
+    .doc(postId)
+    .update({
+
+      "like": FieldValue.arrayUnion([FirebaseAuth.instance.currentUser?.email])
+    });}
+    
+    else{
+      
+      FirebaseFirestore.instance.collection("posts")
+    .doc(postId)
+    .update({
+
+      "like": FieldValue.arrayRemove([FirebaseAuth.instance.currentUser?.email])
+    });
+
+
+    }
+
+   }
   //deletepost
-  deletePost()async{
+  deletePost(String postId)async{
 
     try {
     await  FirebaseFirestore.instance.collection("posts").doc(postId).delete();
@@ -112,6 +149,22 @@ class _HomePostState extends State<HomePost> {
       
     }
   }
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchFirestoreData();
+  }
+   fetchFirestoreData()async{
+  // likes =  await FirebaseFirestore.instance.collection("posts").doc(postId).get();
+ 
+setState(() {
+  
+});
+
+
+
+   }
 
   //we can directly assign list type to list
   @override
@@ -122,7 +175,7 @@ class _HomePostState extends State<HomePost> {
     
     return Scaffold(
         body: StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance.collection("posts").snapshots(),
+          stream: FirebaseFirestore.instance.collection("posts").orderBy("timeStamp", descending:true ).snapshots(),
           builder: (context, snapshot) {
             if(snapshot.connectionState==ConnectionState.waiting){
                return Center(child: CircularProgressIndicator());
@@ -159,14 +212,20 @@ class _HomePostState extends State<HomePost> {
                 itemCount: snapshot.data?.docs.length,
                 //we use map() function for list to perform iteration
                 itemBuilder: (context, index) {
-                 postId = snapshot.data!.docs[index].get("postId");
+                String postId = snapshot.data!.docs[index].get("postId");
                   return HomeUi(imageUrl: snapshot.data!.docs[index].get("url"),
                    email: snapshot.data!.docs[index].get("email"),
                    description:snapshot.data!.docs[index].get("description") ,
+                   postId: postId,
+                   
                    callback: (){
-                    showDeleteDialogBox();
+                    showDeleteDialogBox(postId);
 
                    },
+                   likeCallBack: (){
+                    likePost(postId);
+                   },
+                   commentCallBack: (){},
                    
                    
                    );

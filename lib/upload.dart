@@ -68,6 +68,8 @@ class _UploadState extends State<Upload> {
         "postId": postId,
         "description": desController.text,
         "url": url,
+        "like": [],
+        "timeStamp": DateTime.now(),
       });
     } else {
       dialogBox(context, "current user value is null");
