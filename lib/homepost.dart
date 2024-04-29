@@ -20,6 +20,7 @@ class _HomePostState extends State<HomePost> {
  var likes;
  bool isLIked = false;
 TextEditingController commentController = TextEditingController();
+ScrollController scrollController = ScrollController();
   
   //gradle inside app directory called is called app level gradle
   //  late QuerySnapshot querySnap; querySnap should be assign some value before accessign it
@@ -111,15 +112,19 @@ TextEditingController commentController = TextEditingController();
     });
    }
    //likePost
-   likePost(String postId){
+   likePost(String postId)async{
 // toogle button 
+//in case of async operation if code initiated with setstate, setstate method won't 
+//finish rebuilding immediately, here in this case setstate rebuild ui finished it's
+// operation after async operation is completed
 setState(() {
   isLIked = !isLIked;
   
 });
 //will work because isLIked related to specific postlike
+//not using async and await leads to unintende behaviour of like button
 if(isLIked){
-    FirebaseFirestore.instance.collection("posts")
+   await FirebaseFirestore.instance.collection("posts")
     .doc(postId)
     .update({
 
@@ -128,7 +133,7 @@ if(isLIked){
     
     else{
       
-      FirebaseFirestore.instance.collection("posts")
+    await  FirebaseFirestore.instance.collection("posts")
     .doc(postId)
     .update({
 
@@ -137,7 +142,14 @@ if(isLIked){
 
 
     }
+    // //
+    // scrollController.position.pixels;
 
+    setState(() {
+      
+    });
+    
+    
    }
   //deletepost
   deletePost(String postId)async{
@@ -262,6 +274,7 @@ controller: commentController,
 
             }
             return ListView.builder(
+              controller: scrollController,
                 shrinkWrap: true,
                 itemCount: snapshot.data?.docs.length,
                 //we use map() function for list to perform iteration

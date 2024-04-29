@@ -1,3 +1,4 @@
+
 import 'package:blogapp/home.dart';
 import 'package:blogapp/login.dart';
 import 'package:blogapp/provider/themenotifier.dart';
@@ -55,6 +56,7 @@ class BlogApp extends StatelessWidget {
         // MySignUp(),
         "/homes": (context) => MyHome(),
         "/signup": (context) => MySignUp(),
+       
       },
     );
   }

@@ -101,7 +101,7 @@ class HomeUi extends StatelessWidget {
                       if(snapshot.connectionState==ConnectionState.waiting){
                         return Center(child: CircularProgressIndicator());
                       }
-                      return Text("${snapshot.data?.docs.length}");
+                      return Text("${snapshot.data?.docs.length}", style: TextStyle(color: Colors.blue),);
                     }
                   ),
 
