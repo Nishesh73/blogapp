@@ -104,6 +104,7 @@ class HomeUi extends StatelessWidget {
                       return Text("${snapshot.data?.docs.length}");
                     }
                   ),
+
                 ],
               ),
               //i will press this button when i interact in ui
@@ -116,6 +117,8 @@ class HomeUi extends StatelessWidget {
                   icon: Icon(Icons.delete))
             ],
           ),
+   
+                 
           Divider(),
         ],
       ),
